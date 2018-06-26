@@ -1,0 +1,18 @@
+.editorView{
+	margin:8px;
+	color: #14191e;line-height: 1.76em;font-size: 14px;font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "å¾®è½¯é›…é»‘", Tahoma, Arial, sans-serif;
+	}
+.editorView h1,.editorView h2,.editorView h3{line-height: 1em;margin: 0.67em 0;}
+.editorView h1{font-size: 24px;}
+.editorView h2{font-size: 20px;}
+.editorView h3{font-size: 16px;}
+.editorView ol,.editorView ul,.editorView p{margin: 0.6em 0 ;}
+.editorView strong, .editorView b {font-weight: bold;}
+.editorView i, .editorView cite, .editorView em, .editorView var, .editorView address, .editorView dfn {font-style: italic;font-weight: inherit;}
+.editorView ol{list-style:decimal;padding-left: 30px;}
+.editorView ul{list-style: disc;padding-left: 30px;}
+.editorView ol p,.editorView ul p{margin: 0.6em 0;}
+.editorView a:link,.editorView a:visited{color: #0088cc;text-decoration: none;}
+.editorView a:hover,.editorView a:active{text-decoration: underline;}
+.editorView blockquote{display: block;border-left: 8px solid #d0e5f2;padding: 5px 10px;margin: 10px 0;line-height: 1.4;font-size: 100%;background-color: #f1f1f1;}
+.editorView pre{margin:.5em 0;padding:.4em .6em;line-height:1.5;border-radius:3px;background:#eee;}

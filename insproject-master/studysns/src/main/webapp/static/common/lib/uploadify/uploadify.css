@@ -1,0 +1,153 @@
+/*
+Uploadify
+Copyright (c) 2012 Reactive Apps, Ronnie Garcia
+Released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
+*/
+
+.uploadify {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.uploadify-button {
+    background-color: rgb(255, 237, 229);
+    color: #555;
+    outline: none;
+    font-size: 14px;
+    font-weight: normal;
+    display: inline-block;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 18px;
+    border: 1px solid rgb(255, 200, 178);
+    border-radius: 2px;
+    cursor: pointer;
+    filter: alpha(opacity=90);
+    -webkit-transition: border-color .3s cubic-bezier(.65, .05, .35, .5);
+    transition: border-color .3s cubic-bezier(.65, .05, .35, .5);
+}
+
+.uploadify-button.disabled {
+    background-color: #D0D0D0;
+    color: #808080;
+}
+
+.uploadify-queue {
+    margin-bottom: 1em;
+}
+
+.uploadify-queue-item {
+    background-color: #F5F5F5;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font: 11px Verdana, Geneva, sans-serif;
+    margin-top: 5px;
+    max-width: 350px;
+    padding: 10px;
+}
+
+.uploadify-error {
+    background-color: #FDE5DD !important;
+}
+
+.uploadify-queue-item .cancel a {
+    /* 郭明注释 background: url('../img/uploadify-cancel.png') 0 0 no-repeat;*/
+    float: right;
+    height: 16px;
+    text-indent: -9999px;
+    width: 16px;
+}
+
+.uploadify-queue-item.completed {
+    background-color: #E5E5E5;
+}
+
+.uploadify-progress {
+    background-color: #E5E5E5;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.uploadify-progress-bar {
+    background-color: #0099FF;
+    height: 3px;
+    width: 1px;
+}
+
+.upload-img-show > ul > li {
+    position: relative;
+    border: 1px solid #e9e9e9;
+    width: 100px;
+    height: 100px;
+    line-height: 96px;
+    padding: 0;
+    margin-right: 5px;
+    overflow: hidden;
+    text-align: center;
+    display: inline-block;
+}
+
+.upload-img-show > ul {
+    margin-left: 0;
+}
+
+.upload-img-show > ul > li .delet-btn {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.4) url("dele-img-btn.png") no-repeat center center;
+}
+
+.upload-img-show > ul > li:hover .delet-btn {
+    display: block;
+}
+
+.upload-img-show > ul > li > img {
+    max-height: 100%;
+    max-width: 100%;
+    margin-bottom:5px;
+    vertical-align: middle;
+}
+
+
+/* 文件展示样式 */
+
+.upload-file-show > ul > li {
+/*     position: relative; */
+/*     border: 1px solid #e9e9e9; */
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    margin-right: 5px;
+    overflow: hidden;
+/*     text-align: center; */
+}
+
+.upload-file-show > ul {
+    margin-left: 0;
+}
+
+.upload-file-show > ul > li .delet-btn {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+
+
+

@@ -1,0 +1,4 @@
+编译时需要使用flex-sdk4.1  python3  ant  jdk32位
+编译时在根目录执行命令 ant -buildfile build\build.xml
+
+目前屏蔽了右键菜单，并且把logo换了

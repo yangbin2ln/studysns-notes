@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+    xmlns:tx="http://www.springframework.org/schema/tx"   
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd        
+        http://www.springframework.org/schema/tx       
+        http://www.springframework.org/schema/tx/spring-tx.xsd">	
+	
+	<!-- 自动扫描  --> 	
+	<context:component-scan base-package="com.insplatform" /> 
+	<context:component-scan base-package="com.insproject" /> 
+	<!-- 加载properties配置文件
+	<bean class="com.insplatform.spring.properties.PropertyPlaceholder">  
+	    <property name="locations">  
+	        <list>  	            
+	            <value>classpath:application.properties</value>  
+	        </list>  
+	    </property>  
+	</bean>   -->
+	
+	<!-- 初始化 -->
+	<bean class="com.insproject.common.context.init.AppInitalizer"> 
+		<property name="initializers">
+			<list>				
+				<bean class="com.insproject.common.context.init.impl.ContextInitializer"></bean>
+			</list>
+		</property>
+	</bean>	
+	 
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">  
+		<property name="driverClass" value="${jdbc.c3p0.driverClass}"/>  
+        <property name="jdbcUrl" value="${jdbc.c3p0.jdbcUrl}" />
+        <property name="user" value="${jdbc.c3p0.user}"/>  
+        <property name="password" value="${jdbc.c3p0.password}"/>  
+        <property name="initialPoolSize" value="${jdbc.c3p0.initialPoolSize}"/>
+        <property name="minPoolSize" value="${jdbc.c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${jdbc.c3p0.maxPoolSize}"/>
+        <property name="acquireIncrement" value="${jdbc.c3p0.acquireIncrement}"/>
+        <property name="maxIdleTime" value="${jdbc.c3p0.maxIdleTime}"/>
+        <property name="idleConnectionTestPeriod" value="${jdbc.c3p0.idleConnectionTestPeriod}"/>
+	</bean>
+	
+	<!-- jdbc模板 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource"/>	
+		
+	<!-- 声明式事务   -->		
+	<bean id="transactionManager" 
+    	class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+        p:dataSource-ref="dataSource"/>    
+        
+    <aop:config>
+    	<aop:pointcut id="allMethods"    	
+    	 expression="execution(* com.insplatform..*.service.*Service.*(..)) or execution(* com.insproject..*.service.*Service.*(..))"/>
+    	<aop:advisor advice-ref="txAdvice" pointcut-ref="allMethods"/>
+    </aop:config>	
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>       	  
+        	<!-- Mysql事物 可配置只读属性 -->  
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="load*" read-only="true" />
+            <tx:method name="query*" read-only="true" />
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>                     
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>           
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>            
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="create*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>           
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>          
+            <tx:method name="execute*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>                
+            <tx:method name="*" read-only="true" />    
+            
+            <!-- Oracle事物  全部强制事物 
+            <tx:method name="*" propagation="REQUIRED" />      
+            -->      
+        </tx:attributes>
+    </tx:advice>
+    
+    <!-- 开启注解事物 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    
+    <!-- 国际化支持 -->
+    <bean id="messageSource" class="com.insplatform.spring.resource.ResourceBundleMessageSource">
+        <property name="basenames">
+        	<!-- 只能扫描一级目录，例如i18n下的所有文件，不能有二级
+        		并且只能扫描项目下的，不能扫描jar包里的-->
+			<list>	
+				<value>i18n</value>					 	
+				<!--原始写法				
+				<value>i18n/common</value>				
+				<value>i18n/login</value>		
+				 -->	
+			</list>
+		</property>
+    </bean>
+    <!-- 基于Cookie的本地化解析器 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+    
+    
+    <!-- redis 缓存
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}" />
+    </bean>
+    
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" 
+    	p:host-name="${redis.hostName}" p:port="${redis.port}" p:password="${redis.password}"
+        p:pool-config-ref="jedisPoolConfig" />
+  
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory" />
+        <property name="KeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="ValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+    </bean>	
+	 -->
+	
+	<!-- 导入各系统的其它Spring配置文件  -->		
+	<import resource="classpath*:context/**/*.xml"/>
+</beans>	

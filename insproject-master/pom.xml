@@ -1,0 +1,236 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.insproject</groupId>
+	<artifactId>insproject-master</artifactId>
+	<version>0.0.1-SNAPSHOT</version>	
+	<packaging>pom</packaging>	
+	
+	<name>insproject-master</name>	
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
+		<java.version>1.8</java.version>
+		<servlet-api.version>3.0.1</servlet-api.version>
+		<jsp-api.version>2.2</jsp-api.version>
+		<jstl.version>1.2</jstl.version>		
+		<junit.version>4.11</junit.version>
+		<c3p0.version>0.9.1.2</c3p0.version>
+		<!-- 是否为开发模式：Y开发模式，N正式发布模式 -->	
+		<is.dev.model>Y</is.dev.model>	
+		<!-- maven私服 -->
+		<nexus.server>192.168.100.247:8082</nexus.server>
+		<!-- 平台jar包版本 -->
+		<insplatform.version>1.0-SNAPSHOT</insplatform.version>		
+		<!-- 加密解密key -->
+		<security.key>INSPROJECT-2017</security.key>		
+		<!-- 控制台日志级别 -->
+		<log4j.level>INFO</log4j.level>		
+		<!-- 静态资源地址 -->
+		<static.path>/insproject-web-static</static.path>		
+		<!-- 文件服务器路径 -->
+		<file.path>/studysns-file</file.path> 				
+		<!-- 文件真实路径 -->
+		<file.realPath>E:/insfile/studysns</file.realPath>				
+		<!-- 报表服务器地址 -->
+		<report.path>/WebReport/ReportServer?reportlet=</report.path>			
+		<!-- jdbc c3p0 -->				
+		<!--  -->
+		<jdbc.c3p0.driverClass>com.mysql.jdbc.Driver</jdbc.c3p0.driverClass>
+		<jdbc.c3p0.jdbcUrl>jdbc:mysql://127.0.0.1:3306/studysns?useOldAliasMetadataBehavior=true<![CDATA[&amp;]]>useUnicode=true<![CDATA[&amp;]]>characterEncoding=UTF-8</jdbc.c3p0.jdbcUrl>
+		<jdbc.c3p0.user>root</jdbc.c3p0.user>
+		<jdbc.c3p0.password>123</jdbc.c3p0.password>				 
+		<!-- 
+		<jdbc.c3p0.driverClass>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc.c3p0.driverClass>
+		<jdbc.c3p0.jdbcUrl>jdbc:sqlserver://192.168.100.247:1433;DatabaseName=insplatform</jdbc.c3p0.jdbcUrl>
+		<jdbc.c3p0.user>sa</jdbc.c3p0.user>
+		<jdbc.c3p0.password>qwer1234</jdbc.c3p0.password>		
+		 -->		 
+		<!--  
+		<jdbc.c3p0.driverClass>oracle.jdbc.driver.OracleDriver</jdbc.c3p0.driverClass>
+		<jdbc.c3p0.jdbcUrl>jdbc:oracle:thin:@192.168.100.247:1521:orcla</jdbc.c3p0.jdbcUrl>
+		<jdbc.c3p0.user>insplatform</jdbc.c3p0.user>
+		<jdbc.c3p0.password>123</jdbc.c3p0.password>		 	
+		-->	
+		<jdbc.c3p0.initialPoolSize>20</jdbc.c3p0.initialPoolSize>
+		<jdbc.c3p0.minPoolSize>10</jdbc.c3p0.minPoolSize>
+		<jdbc.c3p0.maxPoolSize>100</jdbc.c3p0.maxPoolSize>
+		<jdbc.c3p0.acquireIncrement>3</jdbc.c3p0.acquireIncrement>
+		<jdbc.c3p0.maxIdleTime>300</jdbc.c3p0.maxIdleTime>
+		<jdbc.c3p0.idleConnectionTestPeriod>60</jdbc.c3p0.idleConnectionTestPeriod>		
+		<!-- 缓存redis 
+		<redis.hostName>192.168.100.63</redis.hostName>
+		<redis.port>6379</redis.port>
+		<redis.password></redis.password>		
+		<redis.pool.maxTotal>200</redis.pool.maxTotal>
+		<redis.pool.maxIdle>50</redis.pool.maxIdle>
+		<redis.pool.maxWaitMillis>1500</redis.pool.maxWaitMillis>
+		<redis.pool.testOnBorrow>true</redis.pool.testOnBorrow>
+		<redis.pool.testOnReturn>true</redis.pool.testOnReturn>
+		-->
+	</properties>
+	
+	<!-- maven私服 -->
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://${nexus.server}/repository/maven-public</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://${nexus.server}/repository/maven-public</url>
+		</pluginRepository>
+	</pluginRepositories>	
+	
+	<build> 	 
+		<resources>
+			<resource>
+				 <directory>src/main/resources</directory>
+				 <filtering>true</filtering>							 
+			</resource>				
+		</resources> 
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+	    </testResources>	
+		<pluginManagement> 
+		    <plugins>  
+		    	<!-- 经过测试，此插件需要在子项目中显示声明groupId、artifactId -->
+			    <plugin> 
+		        	<groupId>org.apache.maven.plugins</groupId> 
+	                <artifactId>maven-source-plugin</artifactId> 
+	                <executions>  
+	                    <execution>
+				            <phase>verify</phase>
+				            <goals>
+				                <goal>jar-no-fork</goal>
+				            </goals>
+				        </execution>
+	                </executions>  
+	            </plugin> 
+	            <!-- 经过测试，以下插件不需要再子项目中显示声明，可以直接继承 -->
+		        <plugin>  
+		            <groupId>org.apache.maven.plugins</groupId>  
+		            <artifactId>maven-compiler-plugin</artifactId>	
+		            <configuration>  	               
+		                <source>${java.version}</source>  
+		                <target>${java.version}</target>  
+		            </configuration>  
+		        </plugin>  
+		        <plugin>
+		        	<groupId>org.apache.maven.plugins</groupId>
+		        	<artifactId>maven-resources-plugin</artifactId>		
+		        	<configuration>
+		        		<encoding>UTF-8</encoding>
+		        	</configuration>
+		        </plugin>		        
+		    </plugins>  
+	    </pluginManagement>
+	</build>	
+
+	<dependencies>	
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>${junit.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.insplatform</groupId>
+			<artifactId>insplatform-core</artifactId>
+			<version>${insplatform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.insplatform</groupId>
+			<artifactId>insplatform-spring</artifactId>
+			<version>${insplatform.version}</version>
+		</dependency>			
+		<dependency>
+			<groupId>com.insplatform</groupId>
+			<artifactId>insplatform-component</artifactId>
+			<version>${insplatform.version}</version>
+		</dependency>			
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>${servlet-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>jsp-api</artifactId>
+		    <version>${jsp-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>${jstl.version}</version>
+		</dependency>
+		<!-- c3p0 -->
+		<dependency>
+		 	<groupId>c3p0</groupId>
+		  	<artifactId>c3p0</artifactId>
+		 	<version>${c3p0.version}</version>
+		</dependency>
+		<!-- mysql jdbc driver -->
+		<dependency>
+		  	<groupId>mysql</groupId>
+		  	<artifactId>mysql-connector-java</artifactId>
+		  	<version>5.1.35</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.47</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <version>7.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>1.6.1</version>
+		</dependency>
+		<!-- sqlserver jdbc driver  
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>sqljdbc4</artifactId>
+		    <version>4.0</version>
+		</dependency>-->
+		<!-- oracle jdbc driver 
+		<dependency>
+		  	<groupId>com.oracle</groupId>
+		  	<artifactId>ojdbc</artifactId>
+		  	<version>11.1.0.7.0</version>
+		</dependency> -->		
+		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+		
+	</dependencies>		
+
+
+	<modules>
+		<module>insproject-common</module>
+		<module>insproject-provider</module>
+		<module>studysns</module>
+		<module>inszzz-static</module>		
+    </modules>
+	
+</project>
