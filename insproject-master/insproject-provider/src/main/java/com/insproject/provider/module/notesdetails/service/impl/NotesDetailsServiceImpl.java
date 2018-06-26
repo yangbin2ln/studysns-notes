@@ -83,5 +83,10 @@ public class NotesDetailsServiceImpl extends BaseServiceImpl<NotesDetails> imple
 		return notesDetailsRepository.loadAllGrid(condition);
 	}
 
+	@Override
+	public List<Map<String, Object>> loadSummaryList() {
+		return notesDetailsRepository.loadSummaryList();
+	}
+
 
 }

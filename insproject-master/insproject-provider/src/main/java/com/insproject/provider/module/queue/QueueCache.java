@@ -1,6 +1,7 @@
 package com.insproject.provider.module.queue;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
@@ -37,6 +38,17 @@ public class QueueCache<E> {
 		
 		public boolean offset(E e){
 			boolean flag = linkedBlockQueue.offer(e);
+			synchronized (this) {
+				this.notifyAll();
+			}
+			return flag;
+		}
+
+		public boolean offset(List<E> list){
+			boolean flag = true;
+			for(E e: list){
+				flag = linkedBlockQueue.offer(e);
+			}
 			synchronized (this) {
 				this.notifyAll();
 			}

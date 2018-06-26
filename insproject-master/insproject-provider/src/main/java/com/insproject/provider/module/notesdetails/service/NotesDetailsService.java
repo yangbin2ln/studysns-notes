@@ -26,4 +26,7 @@ public interface NotesDetailsService extends BaseService<NotesDetails>{
 	 */
 	Map<String, Object> load(String id);
 	Map<String, Object> loadAllGrid(Condition condition);
+	
+	List<Map<String, Object>> loadSummaryList();
+	
 }

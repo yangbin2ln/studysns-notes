@@ -31,12 +31,7 @@ public class NotesSend implements WebSocketHandler{
         if (!userSocketSessionSet.contains(session)) {  
         	userSocketSessionSet.add(session);  
         }  
-        for(int i=0;i<10;i++){  
-            //broadcast(new TextMessage(new GsonBuilder().create().toJson("\"number\":\""+i+"\"")));
-        	Map<String,Object> map = new HashMap<String,Object>();
-        	map.put("nmber", i);
-            session.sendMessage(new TextMessage(JSON.toJSONString(map)));  
-        }  
+//        session.sendMessage(new TextMessage("websocket连接成功" + session.getId()));  
     }  
   
     @Override  

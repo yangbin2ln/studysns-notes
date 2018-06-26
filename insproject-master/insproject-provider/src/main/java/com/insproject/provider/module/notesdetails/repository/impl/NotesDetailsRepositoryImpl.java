@@ -79,5 +79,11 @@ public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails>
 		 
 		return gridService.loadData(condition.getRequest(), sql, queryParams.toArray());
 	}
+
+	@Override
+	public List<Map<String, Object>> loadSummaryList() {
+		String sql = "select nd.title from t_notes t left join t_notes_details nd on(t.id = nd.notes_id) ";
+		return jdbcAssistant.query(sql);
+	}
 	
 }
