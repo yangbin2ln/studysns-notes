@@ -5,8 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta http-equiv="pragma" content="no-cache">  
+	<meta http-equiv="cache-control" content="no-cache">  
+	<meta http-equiv="expires" content="0">     
+    
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>如何做笔记是个大学问</title>
+    <title>复习计划</title>
 	<%
     	pageContext.setAttribute("STATIC_PATH", "/studysns-static");
     %>

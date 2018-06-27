@@ -47,7 +47,8 @@ public class NotesSendQueue {
 			@Override
 			public void dequeueEventHandler(Map<String,Object> peek) throws Exception {
 				//推送
-				notesSend.sendMessage(JSON.toJSONString(e));
+				logger.info("推送笔记");
+				notesSend.sendMessage(JSON.toJSONString(peek));
 			}
 		});
 		

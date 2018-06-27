@@ -21,7 +21,7 @@
 			<ref bean="pollNotesJobDetail" />
 		</property>
 		<property name="cronExpression">
-			<value>0 * * * * ?</value>
+			<value>0/10 * * * * ?</value>
 		</property>
 	</bean>
 
