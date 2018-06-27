@@ -1,31 +1,31 @@
 package com.insproject.web.system;
 
 
-import org.junit.Before;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+
+import com.insplatform.spring.jdbc.JdbcAssistant;
+
+ 
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(locations={"classpath:applicationContext.xml","classpath:applicationServlet.xml"})  
+@RunWith(SpringJUnit4ClassRunner.class)  
+@ContextConfiguration(locations={"classpath:applicationContext-test.xml"})  
 public class WebBaseTestClass {
-
-	protected MockHttpServletRequest request;  
-	protected MockHttpServletResponse response;  
-	  
-    @Before  
-    public void before()  
-    {  
-        request = new MockHttpServletRequest();  
-        response = new MockHttpServletResponse();  
-        request.setCharacterEncoding("UTF-8");  
-    }  
-
-   
-    
+	@Autowired
+	protected JdbcAssistant jdbcAssistant;	
+	
+	@Test
+    public void time(){
+    	String sql = "select t.update_time - ? from t_notes_details t ";
+    	List<Map<String, Object>> list = jdbcAssistant.query(sql, new Object[]{new Date()});
+    	System.out.println(list);
+    }	
 }
