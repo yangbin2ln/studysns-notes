@@ -18,8 +18,8 @@ public class PullNotesJob {
 	@Autowired
 	private NotesDetailsService notesDetailsService;
 	
-	public void run() {
-		List<Map<String, Object>> loadSummaryList = notesDetailsService.loadSummaryList();
-		notesSendQueue.add(loadSummaryList);
+	public void run() {	
+//		List<Map<String, Object>> loadSummaryList = notesDetailsService.loadSummaryList();
+//		notesSendQueue.add(loadSummaryList);
 	}
 }
