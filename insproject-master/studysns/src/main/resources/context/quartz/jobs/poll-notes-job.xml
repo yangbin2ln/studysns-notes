@@ -21,7 +21,11 @@
 			<ref bean="pollNotesJobDetail" />
 		</property>
 		<property name="cronExpression">
+<<<<<<< HEAD
 			<value>* * * 1 * ?</value>
+=======
+			<value>0/10 * * * * ?</value>
+>>>>>>> fdd57bd248689cd62f64af3d8ea99d76c27f24b8
 		</property>
 	</bean>
 
