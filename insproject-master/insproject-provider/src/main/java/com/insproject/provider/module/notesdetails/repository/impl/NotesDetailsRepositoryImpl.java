@@ -12,6 +12,7 @@ import com.insproject.provider.module.notesdetails.entity.NotesDetails;
 
 import com.insplatform.component.service.ext.grid.GridService;
 import com.insplatform.core.http.Condition;
+import com.insplatform.core.utils.DateUtil;
 
 
 @Repository("NotesDetailsRepositoryImpl")
@@ -88,9 +89,11 @@ public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails>
 				   + " (UNIX_TIMESTAMP(?) - UNIX_TIMESTAMP(nd.update_time)) time_difference "
 				   + " from t_notes t "
 				   + " left join t_notes_details nd on(t.id = nd.notes_id) "
-				   + " inner join t_notes_review_plan nrp on(nrp.notes_id = t.id)) "
+				   + " inner join t_notes_review_plan nrp on(nrp.notes_id = t.id)"
+				   + " where nrp.create_time > ? "
+				   + ") "
 				   + " a  ";
-		List<Map<String, Object>> list = jdbcAssistant.query(sql, new Object[]{new Date()});
+		List<Map<String, Object>> list = jdbcAssistant.query(sql, new Object[]{new Date(), new Date(new Date().getTime() - (15 * 24 * 60 * 60))});
 		return list;
 	}
 	

@@ -8,6 +8,10 @@ import com.insplatform.spring.persistence.annotation.Table;
 import com.insproject.provider.module.notesreviewplan.constant.ReviewStateEnum;
 
 
+/**
+ * @author Administrator
+ *
+ */
 @Table("t_notes_review_plan")
 public class NotesReviewPlan implements Serializable {
 	/**
@@ -19,7 +23,7 @@ public class NotesReviewPlan implements Serializable {
 	@Id
 	private java.lang.Integer id;
 	/***/
-	private java.lang.Integer notesId;
+	private Serializable notesId;
 	/***/
 	private java.lang.Integer fiveMState = ReviewStateEnum.NO.getValue();
 	/***/
@@ -42,6 +46,11 @@ public class NotesReviewPlan implements Serializable {
 	 */
 	private Date lastReviewTime;
 	
+	/**
+	 * 加入复习计划时间
+	 * */
+	private Date createTime = new Date();
+	
 	public void setId(java.lang.Integer value) {
 		this.id = value;
 	}
@@ -50,11 +59,11 @@ public class NotesReviewPlan implements Serializable {
 		return this.id;
 	}
 	
-	public void setNotesId(java.lang.Integer value) {
+	public void setNotesId(Serializable value) {
 		this.notesId = value;
 	}
 	
-	public java.lang.Integer getNotesId() {
+	public Serializable getNotesId() {
 		return this.notesId;
 	}
 	
@@ -128,6 +137,14 @@ public class NotesReviewPlan implements Serializable {
 
 	public void setLastReviewTime(Date lastReviewTime) {
 		this.lastReviewTime = lastReviewTime;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	
 }

@@ -108,6 +108,13 @@ public class NotesDetailsController extends InsBaseController{
 		notesDetailsService.deleteByIds(ids);
 		return jsonMessager.success();
 	}
+	
+	@RequestMapping("/loadSummary")	
+	public @ResponseBody Map<String, Object> loadSummary(HttpServletRequest request){
+		JsonMessager jsonMessager = new JsonMessager();
+		List<Map<String, Object>> list = notesDetailsService.loadSummaryList();
+		return jsonMessager.success().data(list);
+	}
 
 	
 }

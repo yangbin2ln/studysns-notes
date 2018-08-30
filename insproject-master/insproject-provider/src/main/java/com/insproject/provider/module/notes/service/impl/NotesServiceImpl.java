@@ -22,6 +22,8 @@ import com.insproject.provider.module.notes.repository.NotesRepository;
 import com.insproject.provider.module.notes.service.NotesService;
 import com.insproject.provider.module.notesdetails.entity.NotesDetails;
 import com.insproject.provider.module.notesdetails.repository.NotesDetailsRepository;
+import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
+import com.insproject.provider.module.notesreviewplan.repository.NotesReviewPlanRepository;
 import com.insproject.provider.module.yesknowledge.entity.YesKnowledge;
 import com.insproject.provider.module.yesknowledge.repository.YesKnowledgeRepository;
 
@@ -43,6 +45,9 @@ public class NotesServiceImpl extends BaseServiceImpl<Notes> implements NotesSer
 	
 	@Autowired
 	private FlowKnowledgeRepository flowKnowledgeRepository;
+
+	@Autowired
+	private NotesReviewPlanRepository notesReviewPlanRepository;
 
 	@Override
 	public BaseRepository<Notes> getRepository() {		
@@ -133,6 +138,11 @@ public class NotesServiceImpl extends BaseServiceImpl<Notes> implements NotesSer
 			flowKnowledge.setNotesId(notesId);
 			flowKnowledgeRepository.save(flowKnowledge);
 		}
+		
+		//默认加入复习计划
+		NotesReviewPlan notesReviewPlan = new NotesReviewPlan();
+		notesReviewPlan.setNotesId(notesId);
+		notesReviewPlanRepository.save(notesReviewPlan);
 		
 	}
 
