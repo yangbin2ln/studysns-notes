@@ -1,14 +1,14 @@
-package com.insproject.provider.module.notesdetails.repository;
+package com.insproject.provider.module.userreviewplanconfig.repository;
 
 import java.util.List;
 import java.util.Map;
 
 import com.insplatform.core.http.Condition;
 import com.insplatform.spring.baseclass.repository.BaseRepository;
-import com.insproject.provider.module.notesdetails.entity.NotesDetails;
+import com.insproject.provider.module.userreviewplanconfig.entity.UserReviewPlanConfig;
 
 
-public interface NotesDetailsRepository extends BaseRepository<NotesDetails>{
+public interface UserReviewPlanConfigRepository extends BaseRepository<UserReviewPlanConfig>{
 	
 	
 	/**
@@ -29,4 +29,10 @@ public interface NotesDetailsRepository extends BaseRepository<NotesDetails>{
 	
 	Map<String, Object> loadAllGrid(Condition condition);
 
+	/**
+	 * 查询最后添加的用户复习计划配置
+	 * @return
+	 */
+	UserReviewPlanConfig loadLast();
+	
 }

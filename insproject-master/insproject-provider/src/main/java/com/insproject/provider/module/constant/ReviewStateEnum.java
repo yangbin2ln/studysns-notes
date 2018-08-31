@@ -1,4 +1,4 @@
-package com.insproject.provider.module.notesreviewplan.constant;
+package com.insproject.provider.module.constant;
 
 public enum ReviewStateEnum {
 	/**

@@ -1,14 +1,15 @@
-package com.insproject.provider.module.notesreviewplan.repository;
+package com.insproject.provider.module.userreviewplanconfigdetails.repository;
 
+import java.io.Serializable;
 import java.util.*;
 
 import com.insplatform.spring.baseclass.repository.BaseRepository;
-import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
+import com.insproject.provider.module.userreviewplanconfigdetails.entity.UserReviewPlanConfigDetails;
 
 import com.insplatform.core.http.Condition;
 
 
-public interface NotesReviewPlanRepository extends BaseRepository<NotesReviewPlan>{
+public interface UserReviewPlanConfigDetailsRepository extends BaseRepository<UserReviewPlanConfigDetails>{
 	
 	
 	/**
@@ -30,10 +31,9 @@ public interface NotesReviewPlanRepository extends BaseRepository<NotesReviewPla
 	Map<String, Object> loadAllGrid(Condition condition);
 
 	/**
-	 * 查询复习中的笔记
-	 * @param condition
-	 * @return
+	 * 创建用户复习计划配置规则明细
+	 * @param userReviewPlanConfigId
 	 */
-	Map<String, Object> loadReviewingGrid(Condition condition);
+	void createWithDefaultReviewPlanConfig(Serializable userReviewPlanConfigId);
 	
 }

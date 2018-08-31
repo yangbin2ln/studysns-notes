@@ -1,10 +1,9 @@
 package com.insproject.web.admin.controller;
 
-import java.util.*;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.insplatform.core.http.Condition;
 import com.insplatform.core.http.messager.impl.JsonMessager;
 import com.insproject.common.controller.InsBaseController;
-
 import com.insproject.provider.module.notesdetails.entity.NotesDetails;
 import com.insproject.provider.module.notesdetails.service.NotesDetailsService;
 
@@ -109,12 +106,5 @@ public class NotesDetailsController extends InsBaseController{
 		return jsonMessager.success();
 	}
 	
-	@RequestMapping("/loadSummary")	
-	public @ResponseBody Map<String, Object> loadSummary(HttpServletRequest request){
-		JsonMessager jsonMessager = new JsonMessager();
-		List<Map<String, Object>> list = notesDetailsService.loadSummaryList();
-		return jsonMessager.success().data(list);
-	}
-
 	
 }

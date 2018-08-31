@@ -36,6 +36,12 @@ public class Notes implements Serializable {
 	
 	@Transient
 	private List<FlowKnowledge> flowKnowledgeList;
+
+	/**
+	 * 用户复习计划配置id
+	 */
+	@Transient
+	private Integer userReviewPlanConfigId;
 	
 	public Serializable getId() {
 		return id;
@@ -83,6 +89,14 @@ public class Notes implements Serializable {
 
 	public void setFlowKnowledgeList(List<FlowKnowledge> flowKnowledgeList) {
 		this.flowKnowledgeList = flowKnowledgeList;
+	}
+
+	public Integer getUserReviewPlanConfigId() {
+		return userReviewPlanConfigId;
+	}
+
+	public void setUserReviewPlanConfigId(Integer userReviewPlanConfigId) {
+		this.userReviewPlanConfigId = userReviewPlanConfigId;
 	}
 	
 }

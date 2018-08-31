@@ -109,6 +109,8 @@
     <!-- 基于Cookie的本地化解析器 -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
     
+    <!-- 基于@AspectJ切面的驱动器 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
     
     <!-- redis 缓存
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">

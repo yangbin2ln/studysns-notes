@@ -24,6 +24,9 @@ import com.insproject.provider.module.notesdetails.entity.NotesDetails;
 import com.insproject.provider.module.notesdetails.repository.NotesDetailsRepository;
 import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
 import com.insproject.provider.module.notesreviewplan.repository.NotesReviewPlanRepository;
+import com.insproject.provider.module.notesreviewplan.service.NotesReviewPlanService;
+import com.insproject.provider.module.userreviewplanconfig.entity.UserReviewPlanConfig;
+import com.insproject.provider.module.userreviewplanconfig.repository.UserReviewPlanConfigRepository;
 import com.insproject.provider.module.yesknowledge.entity.YesKnowledge;
 import com.insproject.provider.module.yesknowledge.repository.YesKnowledgeRepository;
 
@@ -47,7 +50,10 @@ public class NotesServiceImpl extends BaseServiceImpl<Notes> implements NotesSer
 	private FlowKnowledgeRepository flowKnowledgeRepository;
 
 	@Autowired
-	private NotesReviewPlanRepository notesReviewPlanRepository;
+	private NotesReviewPlanService notesReviewPlanService;
+
+	@Autowired
+	private UserReviewPlanConfigRepository userReviewPlanConfigRepository;
 
 	@Override
 	public BaseRepository<Notes> getRepository() {		
@@ -141,8 +147,14 @@ public class NotesServiceImpl extends BaseServiceImpl<Notes> implements NotesSer
 		
 		//默认加入复习计划
 		NotesReviewPlan notesReviewPlan = new NotesReviewPlan();
-		notesReviewPlan.setNotesId(notesId);
-		notesReviewPlanRepository.save(notesReviewPlan);
+		notesReviewPlan.setNotesId(Integer.parseInt(notesId.toString()));
+		if(notes.getUserReviewPlanConfigId() == null){
+			UserReviewPlanConfig userReviewPlanConfig = userReviewPlanConfigRepository.loadLast();
+			notesReviewPlan.setUserReviewPlanConfigId(userReviewPlanConfig.getId());
+		}else{
+			notesReviewPlan.setUserReviewPlanConfigId(notes.getUserReviewPlanConfigId());
+		}
+		notesReviewPlanService.save(notesReviewPlan);
 		
 	}
 

@@ -1,4 +1,4 @@
-package com.insproject.provider.module.notesdetails.service;
+package com.insproject.provider.module.userreviewplanconfigdetails.service;
 
 import java.util.*;
 
@@ -6,9 +6,9 @@ import java.util.*;
 import com.insplatform.spring.baseclass.service.BaseService;
 import com.insplatform.core.http.Condition;
 
-import com.insproject.provider.module.notesdetails.entity.NotesDetails;
+import com.insproject.provider.module.userreviewplanconfigdetails.entity.UserReviewPlanConfigDetails;
 
-public interface NotesDetailsService extends BaseService<NotesDetails>{
+public interface UserReviewPlanConfigDetailsService extends BaseService<UserReviewPlanConfigDetails>{
 	
 	/**
 	 * 加载数据
@@ -28,4 +28,8 @@ public interface NotesDetailsService extends BaseService<NotesDetails>{
 	
 	Map<String, Object> loadAllGrid(Condition condition);
 	
+	/**
+	 * 使用系统默认配置创建个人复习计划规则
+	 */
+	void createWithDefaultReviewPlanConfig();
 }

@@ -1,15 +1,14 @@
-package com.insproject.provider.module.notesdetails.repository;
+package com.insproject.provider.module.user.service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+
+import com.insplatform.spring.baseclass.service.BaseService;
 import com.insplatform.core.http.Condition;
-import com.insplatform.spring.baseclass.repository.BaseRepository;
-import com.insproject.provider.module.notesdetails.entity.NotesDetails;
 
+import com.insproject.provider.module.user.entity.User;
 
-public interface NotesDetailsRepository extends BaseRepository<NotesDetails>{
-	
+public interface UserService extends BaseService<User>{
 	
 	/**
 	 * 加载数据
@@ -26,7 +25,5 @@ public interface NotesDetailsRepository extends BaseRepository<NotesDetails>{
 	 * @return
 	 */
 	Map<String, Object> load(String id);
-	
 	Map<String, Object> loadAllGrid(Condition condition);
-
 }

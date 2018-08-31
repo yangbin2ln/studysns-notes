@@ -1,41 +1,40 @@
 package com.insproject.provider;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.insplatform.spring.jdbc.JdbcAssistant;
-import com.insproject.provider.module.notesreviewplan.constant.ReviewStateEnum;
-import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
-import com.insproject.provider.module.notesreviewplan.repository.NotesReviewPlanRepository;
+import com.insproject.provider.module.common.SessionUser;
+import com.insproject.provider.module.user.entity.User;
+import com.insproject.provider.module.userreviewplanconfig.entity.UserReviewPlanConfig;
+import com.insproject.provider.module.userreviewplanconfig.repository.UserReviewPlanConfigRepository;
+import com.insproject.provider.module.userreviewplanconfigdetails.service.UserReviewPlanConfigDetailsService;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
+@WebAppConfiguration
 @ContextConfiguration(locations={"classpath:applicationContext-test.xml"})  
 public class ProviderBaseTestClass {
 	@Autowired
 	protected JdbcAssistant jdbcAssistant;	
 
 	@Autowired
-	protected NotesReviewPlanRepository notesReviewPlanRepository;	
+	protected UserReviewPlanConfigDetailsService userReviewPlanConfigDetailsService;	
+	
+	@Autowired
+	protected UserReviewPlanConfigRepository userReviewPlanConfigRepository;	
 	
 	@Test
     public void time(){
-		NotesReviewPlan entity = new NotesReviewPlan();
-		entity.setFifteenDState(ReviewStateEnum.YES.getValue());
-		notesReviewPlanRepository.save(entity);
-
+		User user = new User();
+		user.setId(1);
+		SessionUser.threadLocal.set(user);
+		
+		UserReviewPlanConfig loadLast = userReviewPlanConfigRepository.loadLast();
+		System.out.println(loadLast.getId());
 	}	
-	/*	@Test
-		public void time(){
-			String sql = "select UNIX_TIMESTAMP(?) - UNIX_TIMESTAMP(t.update_time) as time_difference from t_notes_details t ";
-			List<Map<String, Object>> list = jdbcAssistant.query(sql, new Object[]{new Date()});
-			System.out.println(list);
-		}	
-	*/
+	 
 }

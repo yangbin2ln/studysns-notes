@@ -5,13 +5,8 @@ import java.util.Date;
 
 import com.insplatform.spring.persistence.annotation.Id;
 import com.insplatform.spring.persistence.annotation.Table;
-import com.insproject.provider.module.notesreviewplan.constant.ReviewStateEnum;
 
 
-/**
- * @author Administrator
- *
- */
 @Table("t_notes_review_plan")
 public class NotesReviewPlan implements Serializable {
 	/**
@@ -22,35 +17,15 @@ public class NotesReviewPlan implements Serializable {
 	/***/
 	@Id
 	private java.lang.Integer id;
+	/**笔记id*/
+	private java.lang.Integer notesId;
 	/***/
-	private Serializable notesId;
-	/***/
-	private java.lang.Integer fiveMState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer thirtyMState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer twelveHState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer oneDState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer twoDState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer fourDState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer sevenDState = ReviewStateEnum.NO.getValue();
-	/***/
-	private java.lang.Integer fifteenDState = ReviewStateEnum.NO.getValue();
-	
-	/**
-	 * 最后一次复习时间
-	 */
-	private Date lastReviewTime;
-	
-	/**
-	 * 加入复习计划时间
-	 * */
-	private Date createTime = new Date();
-	
+	private java.util.Date lastReviewTime;
+	/**加入复习的时间*/
+	private java.util.Date createTime = new Date();
+	/**用户复习计划配置*/
+	private java.lang.Integer userReviewPlanConfigId;
+
 	public void setId(java.lang.Integer value) {
 		this.id = value;
 	}
@@ -59,92 +34,36 @@ public class NotesReviewPlan implements Serializable {
 		return this.id;
 	}
 	
-	public void setNotesId(Serializable value) {
+	public void setNotesId(java.lang.Integer value) {
 		this.notesId = value;
 	}
 	
-	public Serializable getNotesId() {
+	public java.lang.Integer getNotesId() {
 		return this.notesId;
 	}
 	
-	public void setFiveMState(java.lang.Integer value) {
-		this.fiveMState = value;
+	public void setLastReviewTime(java.util.Date value) {
+		this.lastReviewTime = value;
 	}
 	
-	public java.lang.Integer getFiveMState() {
-		return this.fiveMState;
+	public java.util.Date getLastReviewTime() {
+		return this.lastReviewTime;
 	}
 	
-	public void setThirtyMState(java.lang.Integer value) {
-		this.thirtyMState = value;
+	public void setCreateTime(java.util.Date value) {
+		this.createTime = value;
 	}
 	
-	public java.lang.Integer getThirtyMState() {
-		return this.thirtyMState;
+	public java.util.Date getCreateTime() {
+		return this.createTime;
 	}
 	
-	public void setTwelveHState(java.lang.Integer value) {
-		this.twelveHState = value;
+	public void setUserReviewPlanConfigId(java.lang.Integer value) {
+		this.userReviewPlanConfigId = value;
 	}
 	
-	public java.lang.Integer getTwelveHState() {
-		return this.twelveHState;
-	}
-	
-	public void setOneDState(java.lang.Integer value) {
-		this.oneDState = value;
-	}
-	
-	public java.lang.Integer getOneDState() {
-		return this.oneDState;
-	}
-	
-	public void setTwoDState(java.lang.Integer value) {
-		this.twoDState = value;
-	}
-	
-	public java.lang.Integer getTwoDState() {
-		return this.twoDState;
-	}
-	
-	public void setFourDState(java.lang.Integer value) {
-		this.fourDState = value;
-	}
-	
-	public java.lang.Integer getFourDState() {
-		return this.fourDState;
-	}
-	
-	public void setSevenDState(java.lang.Integer value) {
-		this.sevenDState = value;
-	}
-	
-	public java.lang.Integer getSevenDState() {
-		return this.sevenDState;
-	}
-	
-	public void setFifteenDState(java.lang.Integer value) {
-		this.fifteenDState = value;
-	}
-	
-	public java.lang.Integer getFifteenDState() {
-		return this.fifteenDState;
-	}
-
-	public Date getLastReviewTime() {
-		return lastReviewTime;
-	}
-
-	public void setLastReviewTime(Date lastReviewTime) {
-		this.lastReviewTime = lastReviewTime;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public java.lang.Integer getUserReviewPlanConfigId() {
+		return this.userReviewPlanConfigId;
 	}
 	
 }

@@ -1,14 +1,14 @@
-package com.insproject.provider.module.notesreviewplan.repository;
+package com.insproject.provider.module.user.repository;
 
 import java.util.*;
 
 import com.insplatform.spring.baseclass.repository.BaseRepository;
-import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
+import com.insproject.provider.module.user.entity.User;
 
 import com.insplatform.core.http.Condition;
 
 
-public interface NotesReviewPlanRepository extends BaseRepository<NotesReviewPlan>{
+public interface UserRepository extends BaseRepository<User>{
 	
 	
 	/**
@@ -28,12 +28,5 @@ public interface NotesReviewPlanRepository extends BaseRepository<NotesReviewPla
 	Map<String, Object> load(String id);
 	
 	Map<String, Object> loadAllGrid(Condition condition);
-
-	/**
-	 * 查询复习中的笔记
-	 * @param condition
-	 * @return
-	 */
-	Map<String, Object> loadReviewingGrid(Condition condition);
 	
 }

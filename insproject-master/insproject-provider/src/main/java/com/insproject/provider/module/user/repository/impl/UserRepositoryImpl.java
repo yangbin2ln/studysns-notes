@@ -1,35 +1,34 @@
-package com.insproject.provider.module.notesdetails.repository.impl;
+package com.insproject.provider.module.user.repository.impl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.insplatform.spring.baseclass.repository.impl.BaseRepositoryImpl;
+import com.insproject.provider.module.user.repository.UserRepository;
+import com.insproject.provider.module.user.entity.User;
+
 import com.insplatform.component.service.ext.grid.GridService;
 import com.insplatform.core.http.Condition;
-import com.insplatform.spring.baseclass.repository.impl.BaseRepositoryImpl;
-import com.insproject.provider.module.notesdetails.entity.NotesDetails;
-import com.insproject.provider.module.notesdetails.repository.NotesDetailsRepository;
 
 
-@Repository("NotesDetailsRepositoryImpl")
-public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails> implements NotesDetailsRepository{
+@Repository("WebUserRepositoryImpl")
+public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements UserRepository{
 	
 	@Autowired
 	private GridService gridService;
 	
 	@Override
 	public List<Map<String, Object>> loadAllList(Condition condition) {	
-		String sql = "select t.* from t_notes_details t ";
+		String sql = "select t.* from t_user t ";
 		return jdbcAssistant.query(sql, condition.valueArray());
 	}
 	
 	@Override
 	public Map<String, Object> load(String id) {	
-		String sql = "select t.* from t_notes_details t where t.id = ? ";
+		String sql = "select t.* from t_user t where t.id = ? ";
 		return jdbcAssistant.queryOne(sql, new Object[]{id});
 	}
 	
@@ -37,7 +36,7 @@ public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails>
 	 * 重写父类get方法
 	 */
 	@Override
-	public NotesDetails get(Serializable id) {		
+	public User get(Serializable id) {		
 		return super.get(id);
 	}
 	
@@ -45,7 +44,7 @@ public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails>
 	 * 重写父类save方法
 	 */
 	@Override
-	public Serializable save(NotesDetails entity) {	
+	public Serializable save(User entity) {	
 		return super.save(entity);
 	}
 	
@@ -53,7 +52,7 @@ public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails>
 	 * 重写父类update方法
 	 */
 	@Override
-	public int update(NotesDetails entity) {		
+	public int update(User entity) {		
 		return super.update(entity);
 	}
 	
@@ -76,9 +75,9 @@ public class NotesDetailsRepositoryImpl extends BaseRepositoryImpl<NotesDetails>
 	@Override
 	public Map<String, Object> loadAllGrid(Condition condition) {
 		List<Object> queryParams = new ArrayList<Object>();
-		String sql = "select t.* from t_notes_details t where 1=1";
+		String sql = "select t.* from t_user t where 1=1";
 		 
 		return gridService.loadData(condition.getRequest(), sql, queryParams.toArray());
 	}
-
+	
 }
