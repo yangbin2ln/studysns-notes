@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.insplatform.component.service.ext.grid.GridService;
 import com.insplatform.core.http.Condition;
 import com.insplatform.spring.baseclass.repository.impl.BaseRepositoryImpl;
+import com.insplatform.spring.mapper.BeanPropertyRowMapper;
 import com.insproject.provider.module.notesreviewplanexecute.entity.NotesReviewPlanExecute;
 import com.insproject.provider.module.notesreviewplanexecute.repository.NotesReviewPlanExecuteRepository;
 
@@ -87,17 +88,17 @@ public class NotesReviewPlanExecuteRepositoryImpl extends BaseRepositoryImpl<Not
 				  + " SELECT ?, FROM_UNIXTIME(unix_timestamp(now()) + urpcd.time) "
 				  + " FROM t_user_review_plan_config urpc "
 				  + " LEFT JOIN t_user_review_plan_config_details urpcd ON ( "
-				  + " urpcd.user_review_plan_config_id = urpc.id) WHERE urpc.id = ?";
+				  + " urpcd.user_review_plan_config_id = urpc.id) WHERE urpc.id = ?"; 
 		return jdbcAssistant.update(sql, new Object[] { notesReviewPlanId, userReviewPlanConfigId });
 	}
 
 	@Override
-	public Map<String, Object> loadWithCurrentPeriod(Integer notesId) {
+	public NotesReviewPlanExecute loadWithCurrentPeriod(Integer notesId) {
 		String sql = "SELECT nrpe.* FROM t_notes t LEFT JOIN t_notes_review_plan nrp ON (t.id = nrp.notes_id) "
 				+ "LEFT JOIN t_notes_review_plan_execute nrpe ON (nrpe.notes_review_plan_id = nrp.id) "
 				+ "WHERE t.id = ? and nrpe.plan_review_time <= now() "
 				+ "order by nrpe.plan_review_time desc limit 0,1";
-		return jdbcAssistant.queryOne(sql, new Object[notesId]);
+		return jdbcAssistant.queryAsObject(sql, new Object[notesId], BeanPropertyRowMapper.newInstance(getEntityClass()));
 	}
 
 }

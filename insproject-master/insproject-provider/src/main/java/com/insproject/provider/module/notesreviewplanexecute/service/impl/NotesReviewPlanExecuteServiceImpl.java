@@ -85,12 +85,11 @@ public class NotesReviewPlanExecuteServiceImpl extends BaseServiceImpl<NotesRevi
 
 	@Override
 	public Boolean updateReview(Integer notesId) {
-		Map<String, Object> one = notesReviewPlanExecuteRepository.loadWithCurrentPeriod(notesId);
+		NotesReviewPlanExecute notesReviewPlanExecute = notesReviewPlanExecuteRepository.loadWithCurrentPeriod(notesId);
 		
-		if(one == null){
+		if(notesReviewPlanExecute == null){
 			return false;
 		}
-		NotesReviewPlanExecute notesReviewPlanExecute = notesReviewPlanExecuteRepository.get(Integer.parseInt(one.get("id").toString()));
 		notesReviewPlanExecute.setRealReviewTime(new Date());
 		notesReviewPlanExecuteRepository.update(notesReviewPlanExecute);
 		return true;

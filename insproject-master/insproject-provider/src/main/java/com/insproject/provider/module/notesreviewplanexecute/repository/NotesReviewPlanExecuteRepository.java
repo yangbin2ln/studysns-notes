@@ -40,6 +40,6 @@ public interface NotesReviewPlanExecuteRepository extends BaseRepository<NotesRe
 	 * 根据当前时间所在时间复习计划的时间段查询复习计划执行记录
 	 * @return
 	 */
-	Map<String, Object> loadWithCurrentPeriod(Integer notesId);
+	NotesReviewPlanExecute loadWithCurrentPeriod(Integer notesId);
 	
 }
