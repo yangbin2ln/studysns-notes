@@ -24,8 +24,13 @@ public class NotesReviewPlanExecuteRepositoryImpl extends BaseRepositoryImpl<Not
 
 	@Override
 	public List<Map<String, Object>> loadAllList(Condition condition) {
-		String sql = "select t.* from t_notes_review_plan_execute t ";
-		return jdbcAssistant.query(sql, condition.valueArray());
+		List<Object> queryParams = new ArrayList<Object>();
+		String sql = "select t.* from t_notes_review_plan_execute t where 1=1 ";
+		if(condition.containsKey("notesReviewPlanId")){
+			queryParams.add(condition.get("notesReviewPlanId"));
+			sql += " and t.notes_review_plan_id = ?";
+		}
+		return jdbcAssistant.query(sql, queryParams.toArray());
 	}
 
 	@Override

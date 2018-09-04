@@ -22,7 +22,7 @@ public class NoKnowledgeRepositoryImpl extends BaseRepositoryImpl<NoKnowledge> i
 	
 	@Override
 	public List<Map<String, Object>> loadAllList(Condition condition) {	
-		String sql = "select t.* from t_no_knowledge t ";
+		String sql = "select t.* from t_no_knowledge t where 1=1 ";
 		return jdbcAssistant.query(sql, condition.valueArray());
 	}
 	

@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import com.insplatform.spring.baseclass.repository.BaseRepository;
 import com.insplatform.spring.baseclass.service.impl.BaseServiceImpl;
 import com.insplatform.core.http.Condition;
-
+import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
+import com.insproject.provider.module.notesreviewplan.repository.NotesReviewPlanRepository;
 import com.insproject.provider.module.notesreviewplanexecute.entity.NotesReviewPlanExecute;
 import com.insproject.provider.module.notesreviewplanexecute.repository.NotesReviewPlanExecuteRepository;
 import com.insproject.provider.module.notesreviewplanexecute.service.NotesReviewPlanExecuteService;
@@ -22,6 +23,9 @@ public class NotesReviewPlanExecuteServiceImpl extends BaseServiceImpl<NotesRevi
 	@Autowired
 	@Qualifier("NotesReviewPlanExecuteRepositoryImpl")
 	private NotesReviewPlanExecuteRepository notesReviewPlanExecuteRepository;
+
+	@Autowired
+	private NotesReviewPlanRepository notesReviewPlanRepository;
 
 	@Override
 	public BaseRepository<NotesReviewPlanExecute> getRepository() {
@@ -92,6 +96,11 @@ public class NotesReviewPlanExecuteServiceImpl extends BaseServiceImpl<NotesRevi
 		}
 		notesReviewPlanExecute.setRealReviewTime(new Date());
 		notesReviewPlanExecuteRepository.update(notesReviewPlanExecute);
+		
+		NotesReviewPlan notesReviewPlan = notesReviewPlanRepository.get(notesReviewPlanExecute.getNotesReviewPlanId());
+		notesReviewPlan.setLastReviewTime(new Date());
+		notesReviewPlanExecuteRepository.update(notesReviewPlanExecute);
+		
 		return true;
 	}
 

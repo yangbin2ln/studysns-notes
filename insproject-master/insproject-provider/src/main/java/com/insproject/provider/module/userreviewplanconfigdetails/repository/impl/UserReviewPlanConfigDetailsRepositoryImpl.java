@@ -21,9 +21,14 @@ public class UserReviewPlanConfigDetailsRepositoryImpl extends BaseRepositoryImp
 	private GridService gridService;
 	
 	@Override
-	public List<Map<String, Object>> loadAllList(Condition condition) {	
+	public List<Map<String, Object>> loadAllList(Condition condition) {
+		List<Object> queryParams = new ArrayList<Object>();
 		String sql = "select t.* from t_user_review_plan_config_details t ";
-		return jdbcAssistant.query(sql, condition.valueArray());
+		if(condition.containsKey("userReviewPlanConfigId")){
+			queryParams.add(condition.get("userReviewPlanConfigId"));
+			sql += " and t.user_review_plan_config_id = ?";
+		}
+		return jdbcAssistant.query(sql, queryParams.toArray());
 	}
 	
 	@Override

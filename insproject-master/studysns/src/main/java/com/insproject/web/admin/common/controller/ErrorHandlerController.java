@@ -35,7 +35,8 @@ public class ErrorHandlerController extends BaseController{
 				Messager.getJsonMessager().error().data("Request Exception..").send(response);
 			}else{
 				//一般请求
-				response.sendRedirect(request.getContextPath() + "/common/500.jsp");
+				request.getRequestDispatcher("/common/500.jsp").forward(request, response);
+//				response.sendRedirect(request.getContextPath() + "/common/500.jsp");
 			}
 		} 
 		

@@ -117,6 +117,7 @@ sns.scope.hideDeleteIcon = function(target){
 }
 
 initUE();
+initEvent();
 
 //实例化ue
 function initUE(){
@@ -238,4 +239,12 @@ function getValues(sel){
 	});
 	
 	return data;
+}
+
+function initEvent(){
+	$(document).keydown(function (event){
+      if (event.keyCode == 81 && event.altKey) {  //alt+q 
+    	  sns.scope.taggleDetails();
+        }
+   });
 }

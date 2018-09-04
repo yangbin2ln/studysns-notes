@@ -10,9 +10,17 @@ import org.springframework.stereotype.Repository;
 
 import com.insplatform.component.service.ext.grid.GridService;
 import com.insplatform.core.http.Condition;
+import com.insplatform.core.utils.DateUtil;
 import com.insplatform.spring.baseclass.repository.impl.BaseRepositoryImpl;
+import com.insplatform.spring.mapper.ValueMapper;
+import com.insproject.provider.module.flowknowledge.service.FlowKnowledgeService;
 import com.insproject.provider.module.notesreviewplan.entity.NotesReviewPlan;
 import com.insproject.provider.module.notesreviewplan.repository.NotesReviewPlanRepository;
+import com.insproject.provider.module.notesreviewplanexecute.service.NotesReviewPlanExecuteService;
+import com.insproject.provider.module.userreviewplanconfig.service.UserReviewPlanConfigService;
+import com.insproject.provider.module.userreviewplanconfigdetails.service.UserReviewPlanConfigDetailsService;
+import com.insproject.provider.module.yesknowledge.entity.YesKnowledge;
+import com.insproject.provider.module.yesknowledge.service.YesKnowledgeService;
 
 @Repository("NotesReviewPlanRepositoryImpl")
 public class NotesReviewPlanRepositoryImpl extends BaseRepositoryImpl<NotesReviewPlan>
@@ -20,6 +28,15 @@ public class NotesReviewPlanRepositoryImpl extends BaseRepositoryImpl<NotesRevie
 
 	@Autowired
 	private GridService gridService;
+	
+	@Autowired
+	private NotesReviewPlanExecuteService notesReviewPlanExecuteService;
+
+	@Autowired
+	private YesKnowledgeService yesKnowledgeService;
+
+	@Autowired
+	private FlowKnowledgeService flowKnowledgeService;
 
 	@Override
 	public List<Map<String, Object>> loadAllList(Condition condition) {
@@ -44,12 +61,37 @@ public class NotesReviewPlanRepositoryImpl extends BaseRepositoryImpl<NotesRevie
 	public Map<String, Object> loadReviewingGrid(Condition condition) {
 		String sql = " select a.* from ("
 				+ " select nd.title, nd.abstract_summary, nd.application_scene, nd.create_time notes_create_time, nrp.*,  "
-				+ " (UNIX_TIMESTAMP(?) - UNIX_TIMESTAMP(nd.update_time)) time_difference from t_notes t "
+				+ " (UNIX_TIMESTAMP(?) - UNIX_TIMESTAMP(nrp.create_time)) time_difference from t_notes t "
 				+ " left join t_notes_details nd on(t.id = nd.notes_id) "
 				+ " inner join t_notes_review_plan nrp on(nrp.notes_id = t.id)" + " where nrp.create_time > ?) "
 				+ " a  ";
 		return gridService.loadData(condition.getRequest(), sql,
-				new Object[] { new Date(), new Date(new Date().getTime() - (15 * 24 * 60 * 60)) });
+				new Object[] { new Date(), new Date(new Date().getTime() - (15 * 24 * 60 * 60 * 1000)) }, new ValueMapper(){
+
+					@Override
+					public RETURN_CODE map(Map<String, Object> record) throws Exception {
+						//查询复习计划规则配置信息
+						Condition condition2 = new Condition(condition.getRequest());
+						condition2.put("notesReviewPlanId", record.get("id"));
+						List<Map<String, Object>> notesReviewPlanExecuteList = notesReviewPlanExecuteService.loadAllList(condition2);
+						
+						record.put("notesReviewPlanExecuteList", notesReviewPlanExecuteList);
+						record.put("nowTime", DateUtil.dateToString(new Date(), DateUtil.yyyyMMddHHmmss));
+						
+						//查询知识点列表
+						condition2 = new Condition(condition.getRequest());
+						condition2.put("notesId", record.get("notesId"));
+						List<Map<String, Object>> yesKnowledgeList = yesKnowledgeService.loadAllList(condition2);
+						record.put("yesKnowledgeList", yesKnowledgeList);
+						
+						//查询流程性知识点
+						List<Map<String, Object>> flowKnowledgeList = flowKnowledgeService.loadAllList(condition2);
+						record.put("flowKnowledgeList", flowKnowledgeList);
+						
+						return RETURN_CODE.NEXT;
+					}
+			
+		});
 	}
 
 }

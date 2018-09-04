@@ -22,8 +22,13 @@ public class FlowKnowledgeRepositoryImpl extends BaseRepositoryImpl<FlowKnowledg
 	
 	@Override
 	public List<Map<String, Object>> loadAllList(Condition condition) {	
-		String sql = "select t.* from t_flow_knowledge t ";
-		return jdbcAssistant.query(sql, condition.valueArray());
+		List<Object> queryParams = new ArrayList<Object>();
+		String sql = "select t.* from t_flow_knowledge t where 1=1 ";
+		if(condition.containsKey("notesId")){
+			sql += " and t.notes_id = ?";
+			queryParams.add(condition.get("notesId"));
+		}
+		return jdbcAssistant.query(sql, queryParams.toArray());
 	}
 	
 	@Override
