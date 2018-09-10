@@ -70,7 +70,7 @@ public class NotesReviewPlanRepositoryImpl extends BaseRepositoryImpl<NotesRevie
 
 					@Override
 					public RETURN_CODE map(Map<String, Object> record) throws Exception {
-						//查询复习计划规则配置信息
+						//查询复习计划执行记录
 						Condition condition2 = new Condition(condition.getRequest());
 						condition2.put("notesReviewPlanId", record.get("id"));
 						List<Map<String, Object>> notesReviewPlanExecuteList = notesReviewPlanExecuteService.loadAllList(condition2);

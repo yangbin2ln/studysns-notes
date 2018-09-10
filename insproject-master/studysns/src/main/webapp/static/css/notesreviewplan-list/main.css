@@ -1,0 +1,18 @@
+.main-container {
+    max-width: 1056px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 24px;
+    padding-bottom: 32px;
+}
+
+.top-docs-item {
+    position: relative;
+    padding: 24px 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    -webkit-transition: backgroundColor 0.3s ease-in;
+    transition: backgroundColor 0.3s ease-in;
+}
