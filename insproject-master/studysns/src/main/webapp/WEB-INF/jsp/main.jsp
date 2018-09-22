@@ -2,14 +2,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
+	<%@include file="./common.jsp"%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>如何做笔记是个大学问</title>
-	<%
-    	pageContext.setAttribute("STATIC_PATH", "/studysns-static");
-    %>
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="${STATIC_PATH}/css/font-awesome.min.css" rel="stylesheet">

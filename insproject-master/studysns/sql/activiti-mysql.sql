@@ -1,6 +1,5 @@
 -- ----------------------------
--- Table structure for act_ext_hi_task 23423432111111111111111111111
--- ----------------------------
+-- Table structure for act_ext_hi_task 23423432111111111111111111111-- ----------------------------
 DROP TABLE IF EXISTS `act_ext_hi_task`;
 CREATE TABLE `act_ext_hi_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

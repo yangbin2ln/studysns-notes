@@ -23,13 +23,20 @@ public class NotesReviewPlanController extends InsBaseController{
 	private NotesReviewPlanService notesReviewPlanService;
 	
 	/**
-	 * 新增
+	 * 查询复习中的笔记
 	 * @param dict
 	 * @return
 	 */
 	@RequestMapping("/loadReviewingGrid")	
-	public @ResponseBody Map<String, Object> add(String obj, HttpServletRequest request){
+	public @ResponseBody Map<String, Object> loadReviewingGrid(String obj, HttpServletRequest request){
 		return notesReviewPlanService.loadReviewingGrid(new Condition(request));
+	}
+
+	@RequestMapping("/list")	
+	public String loadList(String obj, HttpServletRequest request, Map<String,Object> map){
+		Map<String, Object> data = notesReviewPlanService.loadReviewingGrid(new Condition(request));
+		map.put("data", data);
+		return "notesreviewplan-list";
 	}
 	
 }
