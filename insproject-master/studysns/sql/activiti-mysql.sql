@@ -1,5 +1,5 @@
 -- ----------------------------
--- Table structure for act_ext_hi_task
+-- Table structure for act_ext_hi_task  test123123123
 -- ----------------------------
 DROP TABLE IF EXISTS `act_ext_hi_task`;
 CREATE TABLE `act_ext_hi_task` (
